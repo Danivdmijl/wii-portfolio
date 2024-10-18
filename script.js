@@ -204,7 +204,7 @@ const cardsPerPage = 8; // Number of cards to display at a time
 // Function to display a subset of cards
 function displayCards(startIndex) {
     // Clear the current cards
-    wiiCards.forEach(card => card.innerHTML = ''); // Clear content of all cards
+    wiiCards.forEach(card => card.innerHTML = '');
 
     // Get the subset of cards to display
     const endIndex = Math.min(startIndex + cardsPerPage, wiiCardsData.length);
@@ -230,7 +230,16 @@ function displayCards(startIndex) {
     } else {
         leftArrow.style.visibility = 'visible'; // Show the left arrow when not at the start
     }
+
+    // Show/hide the right arrow based on whether we are at the end
+    const rightArrow = document.querySelector('.arrow-right');
+    if (currentStartIndex + cardsPerPage >= wiiCardsData.length) {
+        rightArrow.style.visibility = 'hidden'; // Hide the right arrow if we are at the end of the array
+    } else {
+        rightArrow.style.visibility = 'visible'; // Show the right arrow if more cards are available
+    }
 }
+
 
 
 // Display the initial set of cards and hide the left arrow

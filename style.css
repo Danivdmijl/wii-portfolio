@@ -378,6 +378,8 @@ body {
     overflow: hidden;
     position: relative;
     animation: zoomIn 0.3s ease-in-out; /* Keep zoom animation */
+    position: relative;
+
 }
 
 @keyframes zoomIn {
