@@ -159,6 +159,11 @@ body {
     font-size: 5rem;
     font-weight:900;
     color: #B2B2B2;
+    transition: transform 0.15s ease;
+}
+
+.wii-circle-left:hover{
+    transform: scale(1.1);
 }
 
 .email-icon {
@@ -209,18 +214,45 @@ body {
     flex-wrap: wrap;
 }
 
+.warning-emoji {
+    color: yellow;
+}
+
+
+/*
 @keyframes spin3d {
     0% {
         transform: rotateY(0deg);
     }
     20% {
-        transform: rotateY(360deg); /* Spin slower over the first 20% of the time */
+        transform: rotateY(360deg);
     }
     100% {
-        transform: rotateY(360deg); /* Stay at the same position for the remaining time */
+        transform: rotateY(360deg);
     }
 }
+*/
 
+/* 
+@keyframes spin3d-card1 {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+@keyframes spin3d-card2 {
+    0% { transform: rotateX(0deg); }
+    100% { transform: rotateX(360deg); }
+}
+
+@keyframes spin3d-card3 {
+    0% { transform: rotateZ(0deg); }
+    100% { transform: rotateZ(360deg); }
+}
+
+@keyframes spin3d-card4 {
+    0% { transform: rotateY(0deg) rotateX(0deg); }
+    100% { transform: rotateY(360deg) rotateX(360deg); }
+} */
 
 .wii-card {
     position: relative;
@@ -427,25 +459,7 @@ body {
     animation: zoomOut 0.3s ease-in-out forwards;
 }
 
-@keyframes spin3d-card1 {
-    0% { transform: rotateY(0deg); }
-    100% { transform: rotateY(360deg); }
-}
 
-@keyframes spin3d-card2 {
-    0% { transform: rotateX(0deg); }
-    100% { transform: rotateX(360deg); }
-}
-
-@keyframes spin3d-card3 {
-    0% { transform: rotateZ(0deg); }
-    100% { transform: rotateZ(360deg); }
-}
-
-@keyframes spin3d-card4 {
-    0% { transform: rotateY(0deg) rotateX(0deg); }
-    100% { transform: rotateY(360deg) rotateX(360deg); }
-}
 
 
 /* Add fade-out animation */
@@ -466,4 +480,85 @@ body {
 /* Make the whole warning screen fade out */
 #warning-screen.fade-out {
     animation: fadeOut 1.5s forwards; /* Fade out the whole screen over 2 seconds */
+}
+
+
+.arrow {
+    position: absolute;
+    top: 38%; /* Position vertically in the middle */
+    transform: translateY(-50%); /* Adjust for perfect centering vertically */
+    font-size: 7rem; /* Size of the arrow */
+    color: #93dcdd; /* Color of the arrows (you can change this to any color you like) */
+    z-index: 3; /* Ensure arrows are on top of other content */
+}
+
+/* Left arrow specific positioning */
+.arrow-left {
+    left: 2rem; /* 2rem from the left edge */
+}
+
+/* Right arrow specific positioning */
+.arrow-right {
+    right: 2rem; /* 2rem from the right edge */
+}
+
+.arrow:hover {
+    color: #007acc; /* Change color on hover (optional) */
+    transform: translateY(-50%) scale(1.2); /* Make the arrow slightly larger on hover */
+}
+
+/* Animation for sliding cards out to the left */
+.slide-out-left {
+    animation: slideOutLeft 1s forwards;
+}
+
+@keyframes slideOutLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-500%);
+    }
+}
+
+/* Animation for sliding cards in from the right */
+.slide-in-right {
+    animation: slideInRight 1s forwards;
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(600%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Animation for sliding cards out to the right */
+.slide-out-right {
+    animation: slideOutRight 1s forwards;
+}
+
+@keyframes slideOutRight {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(500%);
+    }
+}
+
+/* Animation for sliding cards in from the left */
+.slide-in-left {
+    animation: slideInLeft 1s forwards;
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-600%);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }

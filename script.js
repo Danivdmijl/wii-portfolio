@@ -6,7 +6,11 @@ document.addEventListener("mousemove", function (e) {
 
 
 document.addEventListener('keydown', function(event) {
-    if (event.key === 'a' || event.key === 'A') {
+    // Get the warning screen element
+    const warningScreen = document.getElementById('warning-screen');
+
+    // Only allow the "A" key press if the warning screen is visible
+    if ((event.key === 'a' || event.key === 'A') && warningScreen.style.display !== 'none') {
         // Play the Wii click sound
         const clickSound = document.getElementById('wii-click-sound');
         clickSound.play();
@@ -31,7 +35,6 @@ document.addEventListener('keydown', function(event) {
         // After the rest of the text fades out, wait an additional 2 seconds before fading the screen away
         setTimeout(function() {
             // Fade out the entire warning screen
-            const warningScreen = document.getElementById('warning-screen');
             if (warningScreen) {
                 warningScreen.classList.add('fade-out');
             }
@@ -41,7 +44,7 @@ document.addEventListener('keydown', function(event) {
                 const backgroundMusic = document.getElementById('wii-background-sound');
                 backgroundMusic.play(); // Start the background music
 
-                // **NEW: Completely hide the warning screen after the fade-out animation finishes**
+                // Completely hide the warning screen after the fade-out animation finishes
                 setTimeout(function() {
                     warningScreen.style.display = 'none'; // Set display to none to remove it from the layout
                 }, 1500); // After the fade-out completes (1.5 seconds)
@@ -49,6 +52,7 @@ document.addEventListener('keydown', function(event) {
         }, 3500); // Total of 2 seconds after the other text fades
     }
 });
+
 
 function updateTime() {
     const hourElement = document.querySelector('.time-part.hour');
@@ -109,14 +113,22 @@ const wiiCards = document.querySelectorAll('.wii-card');
 
 // Titles and images for each card
 const wiiCardsData = [
-    { id: 'card1', title: 'My Shinys', image: './images/shinypokemon.jpg' },
-    { id: 'card2', title: 'Memory Game', image: './images/memorygame.jpg' },
-    { id: 'card3', title: 'Kanao Flip a Coin', image: './images/kanaoflipacoin.jpg' },
-    { id: 'card4', title: 'My Shinys', image: './images/shinypokemon.jpg' },
-    { id: 'card5', title: 'Memory Game', image: './images/memorygame.jpg' },
-    { id: 'card6', title: 'Kanao Flip a Coin', image: './images/kanaoflipacoin.jpg' },
-    { id: 'card7', title: 'My Shinys', image: './images/shinypokemon.jpg' },
-    { id: 'card8', title: 'Memory Game', image: './images/memorygame.jpg' },
+    { id: 'card1', title: 'My Shinys', image: './images/shinypokemon.jpg', link: 'https://danivdmijl.github.io/Shiny-Pokemon-Dani/' },
+    { id: 'card2', title: 'Memory Game', image: './images/memorygame.jpg', link: 'https://danivdmijl.github.io/memory-game/' },
+    { id: 'card3', title: 'Kanao Flip a Coin', image: './images/kanaoflipacoin.jpg', link: 'https://danivdmijl.github.io/Kanao-s-Coin-Flip/' },
+    { id: 'card4', title: 'Pokemon Catch', image: './images/pokemoncatch.jpg', link: 'https://danivdmijl.github.io/Pokemon-catch-game/' },
+    { id: 'card5', title: 'Cookie Clicker', image: './images/cookiedough.jpg', link: 'https://danivdmijl.github.io/CoockieDough/' },
+    { id: 'card6', title: 'Color Picker', image: './images/colorpicker.jpg', link: 'https://danivdmijl.github.io/ColorPicker/' },
+    { id: 'card7', title: 'Museum Online', image: './images/museumonline.jpg', link: 'https://ianschaafsma.github.io/BO-Museum_Online/web/' },
+    { id: 'card8', title: 'Succes Dagboek', image: './images/succesdagboek.jpg', link: 'https://danivdmijl.github.io/Succes-Dagboek/' },
+    { id: 'card9', title: 'Succes Dagboek', image: './images/succesdagboek.jpg', link: 'https://danivdmijl.github.io/Succes-Dagboek/' },
+    { id: 'card10', title: 'Color Picker', image: './images/colorpicker.jpg', link: 'https://danivdmijl.github.io/ColorPicker/' },
+    { id: 'card11', title: 'Memory Game', image: './images/memorygame.jpg', link: 'https://danivdmijl.github.io/memory-game/' },
+    { id: 'card12', title: 'Cookie Clicker', image: './images/cookiedough.jpg', link: 'https://danivdmijl.github.io/CoockieDough/' },    
+    { id: 'card13', title: 'Pokemon Catch', image: './images/pokemoncatch.jpg', link: 'https://danivdmijl.github.io/Pokemon-catch-game/' },
+    { id: 'card14', title: 'Museum Online', image: './images/museumonline.jpg', link: 'https://ianschaafsma.github.io/BO-Museum_Online/web/' },
+    { id: 'card15', title: 'Kanao Flip a Coin', image: './images/kanaoflipacoin.jpg', link: 'https://danivdmijl.github.io/Kanao-s-Coin-Flip/' },
+    { id: 'card16', title: 'My Shinys', image: './images/shinypokemon.jpg', link: 'https://danivdmijl.github.io/Shiny-Pokemon-Dani/' },
 ];
 
 // Dynamically set the images for each card based on the card-id
@@ -140,50 +152,179 @@ function setCardImages() {
 // Call the function to set the images when the page loads
 document.addEventListener('DOMContentLoaded', setCardImages);
 
-// Function to show the correct game title in the oval
-function showGameTitleOval(event) {
-    const cardId = event.target.closest('.wii-card').id;  // Use closest to handle image hover
-    const cardData = wiiCardsData.find(card => card.id === cardId);
+const clickSound2 = document.getElementById('wii-click-sound2');
 
-    if (cardData) {
-        // Remove any existing ovals to avoid duplication
+
+function preloadSounds() {
+    clickSound2.load(); // Force load the click sound
+}
+
+
+// Function to play the click sound instantly
+function playClickSound() {
+    clickSound2.currentTime = 0;  // Reset playback position to start
+    clickSound2.play().catch(error => console.error('Error playing click sound:', error)); // Play the sound immediately
+}
+
+window.addEventListener('DOMContentLoaded', preloadSounds);
+
+// Function to show the correct game title in the oval (your existing code)
+function showGameTitleOval(event) {
+    const cardElement = event.target.closest('.wii-card');
+    const cardIndex = cardElement ? parseInt(cardElement.dataset.index, 10) : null;
+    
+    if (cardIndex !== null && wiiCardsData[cardIndex]) {
+        const cardData = wiiCardsData[cardIndex];
+        
         const existingOval = document.querySelector('.game-title-oval');
         if (existingOval) {
             existingOval.remove();
         }
 
-        // Create the oval element
         const oval = document.createElement('div');
         oval.classList.add('game-title-oval');
-        oval.textContent = cardData.title;  // Set the correct title
+        oval.textContent = cardData.title;
 
-        // Get the hovered card's position and size
-        const cardRect = event.target.closest('.wii-card').getBoundingClientRect();
+        const cardRect = cardElement.getBoundingClientRect();
+        oval.style.top = `${cardRect.bottom + window.scrollY + 20}px`;
+        oval.style.left = `${cardRect.left + (cardRect.width / 2) - 120}px`;
 
-        // Set the initial oval's position right below the card (hidden at first)
-        oval.style.top = `${cardRect.bottom + window.scrollY + 20}px`; // 20px space below the card for animation
-        oval.style.left = `${cardRect.left + (cardRect.width / 2) - 120}px`; // Centered under the card (oval width: 150px)
-
-        // Append the oval to the body
         document.body.appendChild(oval);
-
-        // Trigger the transition (force reflow for smooth animation)
         requestAnimationFrame(() => {
-            oval.style.top = `${cardRect.bottom + window.scrollY + 10}px`; // Move up smoothly
-            oval.style.opacity = 1; // Fade in
+            oval.style.top = `${cardRect.bottom + window.scrollY + 10}px`;
+            oval.style.opacity = 1;
         });
     }
 }
+
+
+let currentStartIndex = 0; // Track the current index of the card set being displayed
+const cardsPerPage = 8; // Number of cards to display at a time
+
+// Function to display a subset of cards
+function displayCards(startIndex) {
+    // Clear the current cards
+    wiiCards.forEach(card => card.innerHTML = ''); // Clear content of all cards
+
+    // Get the subset of cards to display
+    const endIndex = Math.min(startIndex + cardsPerPage, wiiCardsData.length);
+    const cardsToShow = wiiCardsData.slice(startIndex, endIndex);
+
+    // Populate the visible cards with the new subset
+    wiiCards.forEach((card, index) => {
+        const cardData = cardsToShow[index]; // Get data for current index within visible range
+        if (cardData) {
+            card.dataset.index = startIndex + index; // Store the original index of the card for later
+            const img = document.createElement('img');
+            img.classList.add('thumbnail');
+            img.src = cardData.image;
+            img.alt = cardData.title;
+            card.appendChild(img);
+        }
+    });
+
+    // Show/hide the left arrow based on whether we are at the start
+    const leftArrow = document.querySelector('.arrow-left');
+    if (currentStartIndex === 0) {
+        leftArrow.style.visibility = 'hidden'; // Hide the left arrow when at the start
+    } else {
+        leftArrow.style.visibility = 'visible'; // Show the left arrow when not at the start
+    }
+}
+
+
+// Display the initial set of cards and hide the left arrow
+document.addEventListener('DOMContentLoaded', () => {
+    displayCards(currentStartIndex);
+    document.querySelector('.arrow-left').style.visibility = 'hidden'; // Initially hide the left arrow
+});
+
+// Right arrow click event listener
+document.querySelector('.arrow-right').addEventListener('click', function() {
+    // Slide out the current cards to the left
+    wiiCards.forEach(card => {
+        card.classList.add('slide-out-left');
+    });
+
+    // After the slide-out animation completes, show the next set of cards
+    setTimeout(() => {
+        // Remove the slide-out class after animation ends
+        wiiCards.forEach(card => {
+            card.classList.remove('slide-out-left');
+        });
+
+        // Update the current index to show the next set of cards
+        currentStartIndex += cardsPerPage;
+
+        // If we reach the end of the array, loop back to the beginning
+        if (currentStartIndex >= wiiCardsData.length) {
+            currentStartIndex = 0;
+        }
+
+        // Display the next set of cards
+        displayCards(currentStartIndex);
+
+        // Apply the slide-in-right animation for the new cards
+        wiiCards.forEach(card => {
+            card.classList.add('slide-in-right');
+        });
+
+        // Remove the slide-in animation class after it's done
+        setTimeout(() => {
+            wiiCards.forEach(card => {
+                card.classList.remove('slide-in-right');
+            });
+        }, 1000); // Match the duration of your CSS animation (1s)
+    }, 800); // Wait for the slide-out animation to complete
+});
+
+// Left arrow click event listener
+document.querySelector('.arrow-left').addEventListener('click', function() {
+    // Slide out the current cards to the right
+    wiiCards.forEach(card => {
+        card.classList.add('slide-out-right');
+    });
+
+    // After the slide-out animation completes, show the previous set of cards
+    setTimeout(() => {
+        // Remove the slide-out class after animation ends
+        wiiCards.forEach(card => {
+            card.classList.remove('slide-out-right');
+        });
+
+        // Update the current index to show the previous set of cards
+        currentStartIndex -= cardsPerPage;
+
+        // If we are at the start of the array, prevent it from going negative
+        if (currentStartIndex < 0) {
+            currentStartIndex = 0;
+        }
+
+        // Display the previous set of cards
+        displayCards(currentStartIndex);
+
+        // Apply the slide-in-left animation for the new cards
+        wiiCards.forEach(card => {
+            card.classList.add('slide-in-left');
+        });
+
+        // Remove the slide-in animation class after it's done
+        setTimeout(() => {
+            wiiCards.forEach(card => {
+                card.classList.remove('slide-in-left');
+            });
+        }, 1000); // Match the duration of your CSS animation (1s)
+    }, 800); // Wait for the slide-out animation to complete
+});
+
+
 
 // Function to hide the oval when not hovering
 function hideGameTitleOval() {
     const existingOval = document.querySelector('.game-title-oval');
     if (existingOval) {
-        // Fade out the oval
         existingOval.style.opacity = 0;
-        existingOval.style.top = `${parseFloat(existingOval.style.top) + 10}px`; // Slide down smoothly
-
-        // Remove the oval after the transition and delay completes
+        existingOval.style.top = `${parseFloat(existingOval.style.top) + 10}px`;
         setTimeout(() => {
             if (existingOval) {
                 existingOval.remove();
@@ -192,38 +333,40 @@ function hideGameTitleOval() {
     }
 }
 
-// Add event listeners to each card
 wiiCards.forEach(card => {
     card.addEventListener('mouseenter', showGameTitleOval);
     card.addEventListener('mouseleave', hideGameTitleOval);
+    card.addEventListener('click', playClickSound);
+    card.addEventListener('click', openModal);
 });
 
 
-// Function to open the modal and zoom in the clicked card
+let currentLink = ''; // Variable to store the link of the current card
+
 function openModal(event) {
-    const cardId = event.target.closest('.wii-card').id;  // Get the clicked card's id
-    console.log("Clicked card ID:", cardId);  // Check if card ID is correct
+    const cardElement = event.target.closest('.wii-card');
+    const cardIndex = cardElement ? parseInt(cardElement.dataset.index, 10) : null;
     
-    const cardData = wiiCardsData.find(card => card.id === cardId);  // Find the corresponding data
-    
-    if (cardData) {
-        console.log("Found card data:", cardData);  // Check if card data is found
+    if (cardIndex !== null && wiiCardsData[cardIndex]) {
+        const cardData = wiiCardsData[cardIndex];
         const modal = document.getElementById('modal');
         const modalImg = document.getElementById('modal-img');
-        
-        modalImg.src = cardData.image;  // Set the modal image source
-        console.log("Modal image src set to:", cardData.image);  // Log the image path
 
-        modal.style.display = 'flex';  // Show the modal
-        console.log("Modal is now visible");  // Confirm modal visibility
-    } else {
-        console.log("No card data found for this card ID.");  // Handle case if no matching data
+        modalImg.src = cardData.image;
+        currentLink = cardData.link; // Store the link for the current card
+        modal.style.display = 'flex';  
     }
 }
 
 
-// Function to close the modal
+
 function closeModal() {
+    const wiiMenuSound = document.getElementById('wii-menu-sound'); // Get the Wii Menu sound element
+
+    // Play the Wii Menu sound when closing the modal
+    wiiMenuSound.currentTime = 0; // Reset sound to the start
+    wiiMenuSound.play();
+
     console.log("Modal is closing");
     const modal = document.getElementById('modal');
     const modalContent = document.querySelector('.modal-content');
@@ -264,7 +407,25 @@ document.getElementById('start-button').addEventListener('click', function() {
     // Additional functionality can be added here
 });
 
-// Array of animation names for each card
+// Get references to the audio elements
+const startSound = document.getElementById('start-sound');
+const wiiMenuSound = document.getElementById('wii-menu-sound');
+
+// Event listener for the "Start" button
+document.getElementById('start-button').addEventListener('click', function() {
+    // Play the start sound
+    startSound.currentTime = 0; // Reset sound to the start
+    startSound.play();
+
+    // After the sound plays, redirect to the currentLink
+    if (currentLink) {
+        setTimeout(() => {
+            window.open(currentLink, '_blank'); // Open link in new tab after sound
+        }, 500); // Delay the redirect slightly to allow the sound to play
+    }
+});
+
+
 const cardAnimations = [
     'spin3d-card1',
     'spin3d-card2',
@@ -273,16 +434,52 @@ const cardAnimations = [
     // Add more if needed
 ];
 
-// Function to set animations for each card
+// Function to animate each card with staggered timings
+function animateCard(card, index) {
+    const img = card.querySelector('.thumbnail'); // Select the image inside the card
+    if (img) {
+        const minDuration = 7; // Minimum duration of animation in seconds
+        const maxDuration = 12; // Maximum duration of animation in seconds
+        const minInterval = 3000; // Minimum time (in ms) between animation repeats
+        const maxInterval = 7000; // Maximum time (in ms) between animation repeats
+        const minBreak = 8000; // Minimum break (in ms) before the next animation (8 seconds)
+        const maxBreak = 15000; // Maximum break (in ms) before the next animation (15 seconds)
+
+        // Generate random animation duration, random interval, and random break time
+        const randomDuration = Math.random() * (maxDuration - minDuration) + minDuration;
+        const randomInterval = Math.random() * (maxInterval - minInterval) + minInterval;
+        const randomBreak = Math.random() * (maxBreak - minBreak) + minBreak;
+
+        // Ensure no overlapping animations by applying a "busy" flag to each card
+        if (!card.classList.contains('busy')) {
+            card.classList.add('busy'); // Mark card as busy
+
+            // Apply the animation with random duration
+            img.style.animation = `${cardAnimations[index % cardAnimations.length]} ${randomDuration}s ease-in-out`;
+
+            // After the animation ends, wait for a random interval, then add a random break before triggering it again
+            setTimeout(() => {
+                img.style.animation = ''; // Reset the animation
+                setTimeout(() => {
+                    // Add a random break before the animation starts again
+                    setTimeout(() => {
+                        card.classList.remove('busy'); // Mark the card as free to animate again
+                        animateCard(card, index); // Trigger the animation again after the random break
+                    }, randomBreak);
+                }, randomInterval);
+            }, randomDuration * 1000); // Wait for the animation to finish
+        }
+    }
+}
+
 function setCardAnimations() {
     wiiCards.forEach((card, index) => {
-        const img = card.querySelector('.thumbnail'); // Select the image inside the card
-        if (img) {
-            // Assign the unique animation from the array
-            img.style.animation = `${cardAnimations[index % cardAnimations.length]} 15s infinite ease-in-out`;
-        }
+        // Initial stagger for each card's first animation (delay by index * 1 second)
+        const initialDelay = index * 1000; // 1 second stagger between each card's first animation
+        setTimeout(() => {
+            animateCard(card, index); // Start the animation loop for each card
+        }, initialDelay);
     });
 }
 
-// Call the function to assign the animations
 document.addEventListener('DOMContentLoaded', setCardAnimations);
