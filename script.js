@@ -111,7 +111,7 @@ const wiiCardsData = [
     { id: 'card2', title: 'Memory Game', image: './images/memorygame.jpg' },
     { id: 'card3', title: 'Kanao Flip a Coin', image: './images/kanaoflipacoin.jpg' },
     { id: 'card4', title: 'My Shinys', image: './images/shinypokemon.jpg' },
-    { id: 'card5', title: 'Memory Game', image: '/images/memorygame.jpg' },
+    { id: 'card5', title: 'Memory Game', image: './images/memorygame.jpg' },
     { id: 'card6', title: 'Kanao Flip a Coin', image: './images/kanaoflipacoin.jpg' },
     { id: 'card7', title: 'My Shinys', image: './images/shinypokemon.jpg' },
     { id: 'card8', title: 'Memory Game', image: './images/memorygame.jpg' },
