@@ -40,13 +40,15 @@ document.addEventListener('keydown', function(event) {
             setTimeout(function() {
                 const backgroundMusic = document.getElementById('wii-background-sound');
                 backgroundMusic.play(); // Start the background music
+
+                // **NEW: Completely hide the warning screen after the fade-out animation finishes**
+                setTimeout(function() {
+                    warningScreen.style.display = 'none'; // Set display to none to remove it from the layout
+                }, 1500); // After the fade-out completes (1.5 seconds)
             }, 500); // 1-second delay after the warning screen fades out
         }, 3500); // Total of 2 seconds after the other text fades
     }
 });
-
-
-
 
 function updateTime() {
     const hourElement = document.querySelector('.time-part.hour');
@@ -199,23 +201,30 @@ wiiCards.forEach(card => {
 
 // Function to open the modal and zoom in the clicked card
 function openModal(event) {
-    const cardId = event.target.closest('.wii-card').id;
-    const cardData = wiiCardsData.find(card => card.id === cardId);
-
+    const cardId = event.target.closest('.wii-card').id;  // Get the clicked card's id
+    console.log("Clicked card ID:", cardId);  // Check if card ID is correct
+    
+    const cardData = wiiCardsData.find(card => card.id === cardId);  // Find the corresponding data
+    
     if (cardData) {
-        // Set the modal image and title
+        console.log("Found card data:", cardData);  // Check if card data is found
         const modal = document.getElementById('modal');
         const modalImg = document.getElementById('modal-img');
         
-        modalImg.src = cardData.image;
+        modalImg.src = cardData.image;  // Set the modal image source
+        console.log("Modal image src set to:", cardData.image);  // Log the image path
 
-        // Show the modal
-        modal.style.display = 'flex';
+        modal.style.display = 'flex';  // Show the modal
+        console.log("Modal is now visible");  // Confirm modal visibility
+    } else {
+        console.log("No card data found for this card ID.");  // Handle case if no matching data
     }
 }
 
+
 // Function to close the modal
 function closeModal() {
+    console.log("Modal is closing");
     const modal = document.getElementById('modal');
     const modalContent = document.querySelector('.modal-content');
 

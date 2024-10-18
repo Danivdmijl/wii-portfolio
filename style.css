@@ -14,7 +14,7 @@ body {
     background-image: linear-gradient(to bottom, #c8c8c838 3px, transparent 3px);
     background-size: 100% 8px;
     overflow: hidden;
-    cursor: none;
+    /* cursor: none; */
 }
 
 
