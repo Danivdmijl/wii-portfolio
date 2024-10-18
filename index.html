@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="script.js" defer></script>
+    <title>Wii Main Menu</title>
+</head>
+
+<body>
+    <div id="modal" class="modal">
+        <span id="close-modal" class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modal-img" class="modal-image" src="" alt="Full-size image">
+            <div class="modal-buttons-container">
+                <button id="wii-menu-button" class="modal-button">Wii Menu</button>
+                <button id="start-button" class="modal-button">Start</button>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <div id="warning-screen">
+        <div class="warning-content">
+            <h2 class="warning-h2">⚠ WARNING-HEALTH AND SAFETY</h2>
+            <p class="warning-p">BEFORE PLAYING, READ YOUR OPERATIONS MANUAL FOR IMPORTANT INFORMATION ABOUT YOUR HEALTH AND SAFETY.</p>
+            <p class="warning-p2">Also online at  <br><br>www.nintendo.com/healtysafety/</p>
+            <p class="flashing-text">Press (A) to continue</p>
+        </div>
+    </div>
+    <div class="content-above-footer">
+        <div class="wii-card" id="card1"></div>
+        <div class="wii-card" id="card2"></div>
+        <div class="wii-card" id="card3"></div>
+        <div class="wii-card" id="card4"></div>
+        <div class="wii-card" id="card5"></div>
+        <div class="wii-card" id="card6"></div>
+        <div class="wii-card" id="card7"></div>
+        <div class="wii-card" id="card8"></div>
+        
+        <!-- Continue for other cards -->
+        
+    </div>
+    <div class="wii-menu-border"></div> <!-- blauwe border footer -->
+    <div class="top-time-container">
+        <span class="time-part hour">2</span>
+        <span class="time-part minute">07</span>
+        <span class="time-part period">pm</span>
+    </div>
+    <div class="wii-menu-footer">
+        <div class="CircleSDContainer">
+            <div class="firstlayer-wii">
+                <div class="wii-circle-left">Wii</div>
+            </div>
+            <div class="SDContainer">
+                <img src="/images/sdkaartje.png" alt="">
+            </div>
+        </div>
+        <div class="date-container">
+            <h3 class="current-date" id="current-date">Fri 3/22</h3>
+        </div>
+        <div class="CircleSDContainer">
+            <div class="SDContainer">
+                <img class="invis" src="" alt="">
+            </div>
+            <div class="firstlayer-wii firstlayer-wii-2">
+                <div class="wii-circle-left">
+                    <i class="fas fa-envelope email-icon"></i>
+                    <span class="email-count">1</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <img id="wii-cursor" src="/images/wiicursur.png" alt="Wii Cursor" class="cursor">
+    <audio id="wii-click-sound" src="/sounds/wii-click.mp3" preload="auto"></audio>
+    <audio id="wii-background-sound" src="/sounds/wii-background.mp3" preload="auto" loop></audio>
+</body>
+</html>
